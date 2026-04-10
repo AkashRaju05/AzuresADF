@@ -1,0 +1,24 @@
+{
+	"name": "trigger1",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "pipeline1",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/inputcontainerakash/blobs/",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/6e736a38-71ad-47e5-8959-ac465b9d290f/resourceGroups/trial1-akash/providers/Microsoft.Storage/storageAccounts/storagetrial1akash",
+			"events": [
+				"Microsoft.Storage.BlobDeleted"
+			]
+		}
+	}
+}

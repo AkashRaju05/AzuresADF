@@ -1,0 +1,9 @@
+{
+	"name": "trailakask",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "2d364067-3ae4-4748-99eb-fb1903bb2771",
+		"tenantId": "4ee0d13a-ae5d-4b62-9a84-2f3977bc2ad8"
+	}
+}
