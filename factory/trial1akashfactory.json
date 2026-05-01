@@ -1,0 +1,15 @@
+{
+	"name": "trial1akashfactory",
+	"properties": {
+		"trustModeClaimForMi": {
+			"value": "Enabled",
+			"editable": true
+		}
+	},
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "94b2fd0a-1020-4a71-b1d1-f20702c5f33d",
+		"tenantId": "414c06a1-bb74-426b-8f01-fbe6ade5bd89"
+	}
+}

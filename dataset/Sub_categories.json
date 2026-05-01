@@ -1,0 +1,35 @@
+{
+	"name": "Sub_categories",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "Sheet1",
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "Sub_categories.xlsx",
+				"container": "projectinput"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": [
+			{
+				"name": "subcat_id",
+				"type": "String"
+			},
+			{
+				"name": "subcat_name",
+				"type": "String"
+			},
+			{
+				"name": "category_id",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

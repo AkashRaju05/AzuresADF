@@ -1,0 +1,83 @@
+{
+	"name": "AzureSqlTable1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "sale_id",
+				"type": "smallint",
+				"precision": 5
+			},
+			{
+				"name": "product_id",
+				"type": "smallint",
+				"precision": 5
+			},
+			{
+				"name": "geo_id",
+				"type": "smallint",
+				"precision": 5
+			},
+			{
+				"name": "rep_id",
+				"type": "smallint",
+				"precision": 5
+			},
+			{
+				"name": "units",
+				"type": "smallint",
+				"precision": 5
+			},
+			{
+				"name": "location",
+				"type": "nvarchar"
+			},
+			{
+				"name": "date",
+				"type": "date"
+			},
+			{
+				"name": " city",
+				"type": "nvarchar"
+			},
+			{
+				"name": "country",
+				"type": "nvarchar"
+			},
+			{
+				"name": "rep_name",
+				"type": "nvarchar"
+			},
+			{
+				"name": "product_name",
+				"type": "nvarchar"
+			},
+			{
+				"name": "category_id",
+				"type": "nvarchar"
+			},
+			{
+				"name": "retail_price",
+				"type": "nvarchar"
+			},
+			{
+				"name": "standard_cost",
+				"type": "nvarchar"
+			},
+			{
+				"name": "category_name",
+				"type": "nvarchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "sqlschema",
+			"table": "tablesales"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

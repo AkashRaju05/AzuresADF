@@ -1,0 +1,31 @@
+{
+	"name": "sales_rep",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "Sheet1",
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "Sales_rep.xlsx",
+				"container": "projectinput"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": [
+			{
+				"name": "rep_id",
+				"type": "String"
+			},
+			{
+				"name": "rep_name",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

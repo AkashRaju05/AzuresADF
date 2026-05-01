@@ -1,0 +1,184 @@
+{
+	"name": "dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "sourceFacttable",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				},
+				{
+					"dataset": {
+						"referenceName": "sales_rep",
+						"type": "DatasetReference"
+					},
+					"name": "source2",
+					"description": "sales_rep"
+				},
+				{
+					"dataset": {
+						"referenceName": "Sub_categories",
+						"type": "DatasetReference"
+					},
+					"name": "source3",
+					"description": "Sub_Category"
+				},
+				{
+					"dataset": {
+						"referenceName": "products",
+						"type": "DatasetReference"
+					},
+					"name": "source4"
+				},
+				{
+					"dataset": {
+						"referenceName": "categories",
+						"type": "DatasetReference"
+					},
+					"name": "source5"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable1",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "derivedColumn1"
+				},
+				{
+					"name": "derivedColumn2"
+				},
+				{
+					"name": "derivedColumn3"
+				},
+				{
+					"name": "join1",
+					"description": "sales_rep and main table"
+				},
+				{
+					"name": "join2"
+				},
+				{
+					"name": "join3"
+				},
+				{
+					"name": "select1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          sale_id as short,",
+				"          product_id as short,",
+				"          geo_id as short,",
+				"          rep_id as short,",
+				"          units as short,",
+				"          location as string,",
+				"          date as date",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source1",
+				"source(output(",
+				"          rep_id as string,",
+				"          rep_name as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source2",
+				"source(output(",
+				"          subcat_id as string,",
+				"          subcat_name as string,",
+				"          category_id as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source3",
+				"source(output(",
+				"          product_id as string,",
+				"          product_name as string,",
+				"          category_id as string,",
+				"          retail_price as string,",
+				"          standard_cost as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source4",
+				"source(output(",
+				"          category_id as string,",
+				"          category_name as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source5",
+				"source1 derive({ city} = split(location, ',')[1],",
+				"          country = split(location, ',')[2]) ~> derivedColumn1",
+				"source2 derive(rep_id = substring(rep_id, 4, 1)) ~> derivedColumn2",
+				"source3 derive(subcat_id = replace(subcat_id, 'ID-', '')) ~> derivedColumn3",
+				"select1, derivedColumn2 join(select1@rep_id == toInteger(derivedColumn2@rep_id),",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join1",
+				"join1, source4 join(select1@product_id == toInteger(source4@product_id),",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join2",
+				"join2, source5 join(source4@category_id == source5@category_id,",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join3",
+				"derivedColumn1 select(mapColumn(",
+				"          sale_id,",
+				"          product_id,",
+				"          geo_id,",
+				"          rep_id,",
+				"          units,",
+				"          date,",
+				"          { city},",
+				"          country",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"join3 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          sale_id as integer,",
+				"          product_id as integer,",
+				"          geo_id as integer,",
+				"          rep_id as integer,",
+				"          units as integer,",
+				"          location as string,",
+				"          date as date,",
+				"          { city} as string,",
+				"          country as string,",
+				"          rep_name as string,",
+				"          product_name as string,",
+				"          category_id as string,",
+				"          retail_price as string,",
+				"          standard_cost as string,",
+				"          category_name as string",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> sink1"
+			]
+		}
+	}
+}
