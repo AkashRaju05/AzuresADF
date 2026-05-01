@@ -1,0 +1,30 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "trial1akashfactory"
+		},
+		"AzureBlobStorage1_connectionString": {
+			"value": ""
+		},
+		"AzureSqlDatabase1_password": {
+			"value": ""
+		},
+		"AzureKeyVault1_properties_typeProperties_baseUrl": {
+			"value": "https://AzureAkashsecurity.vault.azure.net/"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_server": {
+			"value": "serverprojectakash.database.windows.net"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_database": {
+			"value": "sqlproject"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_userName": {
+			"value": "akashserver"
+		},
+		"trigger1_properties_typeProperties_scope": {
+			"value": "/subscriptions/6e736a38-71ad-47e5-8959-ac465b9d290f/resourceGroups/trial1-akash/providers/Microsoft.Storage/storageAccounts/storagetrial1akash"
+		}
+	}
+}
